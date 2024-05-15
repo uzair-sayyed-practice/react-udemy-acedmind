@@ -1,0 +1,19 @@
+1) Added ProjectSidebar component in the start in component folder and rendered it in app.jsx then added styling for it using talwind css
+
+2) Added NewProject.jsx component inside component folder and rendered it in app.jsx then added styling for it using talwind and used custom Input component added in the UI folder for reusable approach. 
+
+3) Added state in app.jsx for switching between compoenents that is NewProject.jsx and NoProjectSelected.jsx (if state which we are gonna use is undefined then it means no projects selected or the add new project button clicked but when the state is set to null then it means user clicked on the add new project button or selected the projects)
+
+4) Added refs to  Input component used in NewProject components and wrapped custom Input component with forwardRef to make Custom input working with refs like to retrieve the values of inputs using refs and then added a function in NewProject which is handleSaveProject for the save button so when save button get clicked the function will triggered and extract the values of inputs and store it to a variable . 
+After that a function will be called inside handleSaveProject which we get as a prop from app.jsx which will simply take the arguments like an object with all the extracted values.
+
+Then in app.jsx we will have a function called handleAddProject and this will simply accept those argument which is passed from NewProject component and using those input values handleAddProject will update the state and it will take care to also get the prevState and not to loose it. Also in the state setting function we will create a object variable where will assign id to the data everytime users add a data and then will return that newly created object which also contains id now so will return it using destructure it in an object also destrcuting the previous projectsData.
+
+5) Now rendering the data which we extracted. So in ProjectSidebar comp will pass the projects props containg all the projects data and in the ProjectSidebar will use map method to show the title list in the left side which is ProjectSidebar.
+
+6) Added inbuilt dialog element which is by html which basically provides us a modal and also by default when it occurs automatically background get little dark. So we created Modal component and it will accept a ref which is coming from outside in our case it is coming from app.jsx which is also a parent comp for the Modal. so there will create a ref in app.jsx and pass it to the Modal as a prop and access it in the Modal using by wrraping Modal in forwardRef and then we can access ref in the second parameter. 
+Then will use useImperativeHandle Hook in the child component to attach some functions to the coming ref from the app.jsx 
+so will basically give access of the functions written in the Modal comp to the App.jsx. so app.jsx can access the functions writeen in Modal.jsx by accessing the refName.current.FuncName().
+Also we have to get control over the dialog element so will add a ref for it also in the Modal.jsx and then we can write function in useImperativeHandle Hook and return an object which will contains several functions in our case will have modal so will have showModal() function over there but how to tell that showModal function that we wanna open that the below dialog jsx code so thats why we also linked the dialog with ref in the Modal comp itself and then in the showModal we can write open(){dialog.current.showModal()} so open is the method which we gonna use in app.jsx which parent comp so open method will get set to ref which passed here before means the ref which is present in the app.jsx so there we can access modal.current.open().
+
+Also to close the dialog we have inbuilt func that is a form so will write a form and set it's method to "dialog" so if then you write a button inside it it will automatically close that dialog box but it should be written inside <dialog></dialog>
